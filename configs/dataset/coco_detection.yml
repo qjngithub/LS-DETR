@@ -1,0 +1,43 @@
+task: detection
+
+evaluator:
+  type: CocoEvaluator
+  iou_types: ['bbox', ]
+
+num_classes: 10
+remap_mscoco_category: False
+
+train_dataloader: 
+  type: DataLoader
+  dataset: 
+    type: CocoDetection
+    img_folder: /mnt/hdd1/DEIM-DOTA/DEIM-main/DEIM-main/visdrone_train/images
+    ann_file: /mnt/hdd1/DEIM-DOTA/DEIM-main/DEIM-main/visdrone_train/train.json
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: True
+  num_workers: 4
+  drop_last: True 
+  collate_fn:
+    type: BatchImageCollateFunction
+
+
+val_dataloader:
+  type: DataLoader
+  dataset: 
+    type: CocoDetection
+    img_folder: /mnt/hdd1/DEIM-DOTA/DEIM-main/DEIM-main/visdrone_val/images
+    ann_file: /mnt/hdd1/DEIM-DOTA/DEIM-main/DEIM-main/visdrone_val/val.json
+    return_masks: False
+    transforms:
+      type: Compose
+      ops: ~ 
+  shuffle: False
+  num_workers: 4
+  drop_last: False
+  collate_fn:
+    type: BatchImageCollateFunction
+
+
+# CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7778 --nproc_per_node=4 train.py -c configs/deim_dfine/dfine_hgnetv2_s_coco.yml -r output/dfine_hgnetv2_s_AI-TOD/best_stg1.pth --use-amp --seed=0
