@@ -285,7 +285,7 @@ def wasserstein_loss(pred, target, eps=1e-7, mode='exp', gamma=1, constant=35.8,
     # wloss = 1 - torch.exp(-alpha * torch.sqrt(wasserstein_2))
     # wloss = coefficient * torch.exp(-torch.sqrt((wasserstein_2)))
 
-    wloss = torch.exp(-torch.sqrt(wasserstein_2) / constant)
+    wloss = 1 - torch.exp(-torch.sqrt(wasserstein_2) / constant)
 
     return wloss
 def xyxy2xywh(x):
