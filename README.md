@@ -1,5 +1,5 @@
 <h2 align="center">
-  DEIM: DETR with Improved Matching for Fast Convergence
+  LS-DETR: A Context-Aware Transformer with Adaptive Filtering for Real-Time Small Object Detection in UAV Imagery
 </h2>
 
 <p align="center">
